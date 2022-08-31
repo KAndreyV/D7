@@ -1,0 +1,22 @@
+{% extends 'flatpages/default.html' %}
+
+{% block content %}
+<h1>Публикация</h1>
+<hr>
+
+{% if post_limit %}
+<form action="" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Сохранить" />
+</form>
+{% else %}
+Достигнут лимит постов в день
+{% endif %}<br>
+
+<form action="" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Save" />
+</form>
+{% endblock content %}

@@ -1,0 +1,31 @@
+{% extends 'flatpages/default.html' %}
+
+{% load custom_filters %}
+{% load custom_tags %}
+
+{% block title %}
+Posts
+{% endblock title %}
+
+{% block content %}
+<h1>{{ post.heading|censor }}</h1>
+<h3>{% current_time '%d %b %Y' %}</h3>
+
+<hr>
+
+    {{ post.text_article|censor }}
+    Загружено:
+    {{ post.time_in|date:'d M Y' }}
+
+{% if is_not_subscribers %}
+    {% for cat in post.category.all %}
+<button><a href="{% url 'add_subscribe' cat.pk %}">Подписка на категорию {{ post.category.theme }}</a></button>
+    {% endfor %}
+{% endif %}
+{% if is_subscribers %}
+    {% for cat in post.category.all %}
+<button><a href="{% url 'delete_subscribe' cat.pk %}">Отписка от категории {{ post.category.theme }}</a></button>
+    {% endfor %}
+{% endif %}
+
+{% endblock content %}
